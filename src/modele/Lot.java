@@ -6,8 +6,8 @@ import java.util.Iterator;
 public class Lot extends Articles {
     private ArrayList<Articles> composant;
 
-    public Lot(String nom, int base_price) {
-        super(nom, base_price);
+    public Lot(String nom, int base_price, String depot) {
+        super(nom, base_price, depot);
         composant=new ArrayList<Articles>();
     }
 
@@ -23,7 +23,7 @@ public class Lot extends Articles {
     }
 
     public String getNom(){
-        if (getTaille() < 1){
+        if (getTaille() <= 1){
             return nom+" : 1 piece";
         } else {
             StringBuilder sb=new StringBuilder();

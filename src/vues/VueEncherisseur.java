@@ -30,15 +30,17 @@ public class VueEncherisseur implements Observer {
         fenetre.setPreferredSize(new Dimension(500, 300));
 
         infos = new JPanel();
-        infos.setLayout(new GridLayout(5, 1));
+        infos.setLayout(new GridLayout(6, 1));
 
-        article = new JLabel[3];
+        article = new JLabel[4];
         article[0] = new JLabel("Article : "+modele.getNom());
         article[1] = new JLabel("Prix : "+modele.getPrix());
         article[2] = new JLabel("Dernière enchère : "+modele.getLastEnchere());
+        article[3] = new JLabel("Depot : "+modele.getDepot());
         infos.add(article[0]);
         infos.add(article[1]);
         infos.add(article[2]);
+        infos.add(article[3]);
 
         saisie = new JTextField();
         infos.add(saisie);
@@ -59,5 +61,6 @@ public class VueEncherisseur implements Observer {
         article[0].setText("Article : "+modele.getNom());
         article[1].setText("Prix : "+modele.getPrix());
         article[2].setText("Dernière enchère : "+modele.getLastEnchere());
+        article[3].setText("Depot : "+modele.getDepot());
     }
 }

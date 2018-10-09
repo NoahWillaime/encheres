@@ -9,6 +9,7 @@ import java.util.Observable;
 public class Enchere extends Observable{
     private ArrayList<Lot> articles;
     private String current_nom;
+    private String current_depot;
     private int current_price;
     private int last_enchere;
     private int nb_encherisseur;
@@ -19,6 +20,7 @@ public class Enchere extends Observable{
     public Enchere(){
         this.articles = new ArrayList<>();
         this.current_nom = "Attendre début";
+        this.current_depot = "none";
         this.current_price = 0;
         this.last_enchere = 0;
         this.nb_encherisseur = 0;
@@ -32,6 +34,7 @@ public class Enchere extends Observable{
             open = true;
             current_nom = articles.get(next).getNom();
             current_price = articles.get(next).getPrice();
+            current_depot = articles.get(next).getDepot();
             if (discount != null){
                 current_price = discount.calculDiscount(articles.get(next));
             }
@@ -82,6 +85,10 @@ public class Enchere extends Observable{
 
     public int getPrix(){
         return current_price;
+    }
+
+    public String getDepot(){
+        return current_depot;
     }
 
     public int getLastEnchere(){
