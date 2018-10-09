@@ -12,6 +12,8 @@ public class VueHuissier implements Observer {
     private JFrame fenetre;
     private JPanel infos;
     private JLabel[] article;
+    private JButton stop;
+    private JButton start;
 
     public VueHuissier(Enchere mod){
         mod.addObserver(this);
@@ -22,17 +24,36 @@ public class VueHuissier implements Observer {
     public void buildFrame(){
         fenetre = new JFrame("Huissier");
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fenetre.setPreferredSize(new Dimension(500, 300));
 
         infos = new JPanel();
-        infos.setLayout(new BoxLayout(infos, BoxLayout.Y_AXIS));
+        infos.setLayout(new GridLayout(5, 1));
 
         article = new JLabel[3];
         article[0] = new JLabel("Article : "+modele.getNom());
         article[1] = new JLabel("Prix : "+modele.getPrix());
-        article[2] = new JLabel("Dernière enchère : "+modele.getCurrent_price());
+        article[2] = new JLabel("Dernière enchère : "+modele.getLastEnchere());
         infos.add(article[0]);
         infos.add(article[1]);
         infos.add(article[2]);
+
+        start = new JButton("Start");
+        start.addActionListener(e -> {
+            modele.startEnchere();
+        });
+        infos.add(start);
+        if (modele.getOpen()) {
+            start.setEnabled(false);
+        }
+
+        stop = new JButton("Stop");
+        stop.addActionListener(e -> {
+            modele.stopEnchere();
+        });
+        infos.add(stop);
+        if (!modele.getOpen()){
+            stop.setEnabled(false);
+        }
 
         fenetre.add(infos);
         fenetre.pack();
@@ -41,6 +62,15 @@ public class VueHuissier implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        article[0].setText("Article : "+modele.getNom());
+        article[1].setText("Prix : "+modele.getPrix());
+        article[2].setText("Dernière enchère : "+modele.getLastEnchere());
+        if (modele.getOpen()) {
+            stop.setEnabled(true);
+            start.setEnabled(false);
+        } else {
+            stop.setEnabled(false);
+            start.setEnabled(true);
+        }
     }
 }

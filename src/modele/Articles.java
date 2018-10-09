@@ -3,8 +3,8 @@ package modele;
 import java.util.ArrayList;
 
 public class Articles {
-    private String nom;
-    private int price;
+    protected String nom;
+    protected int price;
 
     public Articles(String nom, int base_price){
         this.nom = nom;
